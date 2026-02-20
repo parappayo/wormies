@@ -1,8 +1,7 @@
 
-
 class GameState:
     def __init__(self):
-        self.points = []
+        self.worms = []
 
         self.background_colour = 0, 0, 0  # rgb 256
         self.screen_size = 1024, 768  # pixels

@@ -29,12 +29,16 @@ class Graphics:
     def draw_frame(self):
         self.surface.fill(self.game.background_colour)
 
-        for point in self.game.points:
-            self.draw_point(point)
+        for worm in self.game.worms:
+            self.draw_worm(worm)
 
         pygame.display.flip()
 
     def draw_point(self, point):
         dest_rect = self.pip_surface.get_rect()
-        dest_rect.center = point
+        dest_rect.center = int(point.x), int(point.y)
         self.surface.blit(self.pip_surface, dest_rect)
+
+    def draw_worm(self, worm):
+        for point in worm.points:
+            self.draw_point(point + worm.position)
