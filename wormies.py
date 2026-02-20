@@ -6,8 +6,7 @@ from gui import *
 
 if __name__ == '__main__':
     game = GameState()
-    worm = Worm()
-    worm.position = Point(800, 30)
+    worm = Worm(400, 300)
     for i in range(10):
         worm.grow()
     game.worms.append(worm)

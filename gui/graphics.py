@@ -41,4 +41,4 @@ class Graphics:
 
     def draw_worm(self, worm):
         for point in worm.points:
-            self.draw_point(point + worm.position)
+            self.draw_point(point)

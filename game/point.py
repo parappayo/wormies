@@ -2,6 +2,7 @@ import math
 
 
 class Point:
+    """A point in 2D cartesean space, also gets used as a math vector type"""
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -24,6 +25,11 @@ class Point:
             return
         return Point(self.x + other.x, self.y + other.y)
 
+    def __sub__(self, other):
+        if not isinstance(other, Point):
+            return
+        return Point(self.x - other.x, self.y - other.y)
+
     def __mul__(self, scalar):
         if not isinstance(scalar, (int, float)):
             return
@@ -32,8 +38,14 @@ class Point:
     def magnitude(self):
         return math.sqrt(self.x * self.x + self.y * self.y)
 
+    def magnitude_squared(self):
+        return self.x * self.x + self.y * self.y
+
     def normalized(self):
-        return self * self.magnitude()
+        mag = self.magnitude()
+        if mag == 0:
+            return self
+        return self * (1 / mag)
 
     def as_tuple(self):
         return (self.x, self.y)
