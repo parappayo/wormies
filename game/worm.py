@@ -17,9 +17,7 @@ class Worm:
             self.move(ticks)
 
     def grow(self):
-        last = self.points[-1]
-        # TODO: growth needs to be handled differently, should not "shoot out" from the tail
-        self.points.append(Point(last.x - self.spacing, last.y))
+        self.points.append(self.points[-1])
 
     def move(self, ticks):
         # 60 fps = 16.666666 ms per frame
