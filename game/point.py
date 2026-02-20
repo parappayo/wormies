@@ -1,3 +1,5 @@
+import math
+
 
 class Point:
     def __init__(self, x, y):
@@ -21,6 +23,17 @@ class Point:
         if not isinstance(other, Point):
             return
         return Point(self.x + other.x, self.y + other.y)
+
+    def __mul__(self, scalar):
+        if not isinstance(scalar, (int, float)):
+            return
+        return Point(self.x * scalar, self.y * scalar)
+
+    def magnitude(self):
+        return math.sqrt(self.x * self.x + self.y * self.y)
+
+    def normalized(self):
+        return self * self.magnitude()
 
     def as_tuple(self):
         return (self.x, self.y)
