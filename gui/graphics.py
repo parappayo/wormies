@@ -29,6 +29,9 @@ class Graphics:
     def draw_frame(self):
         self.surface.fill(self.game.background_colour)
 
+        for edible in self.game.edibles:
+            self.draw_edible(edible)
+
         for worm in self.game.worms:
             self.draw_worm(worm)
 
@@ -42,3 +45,8 @@ class Graphics:
     def draw_worm(self, worm):
         for point in worm.points:
             self.draw_point(point)
+
+    def draw_edible(self, edible):
+        colour = 0, 80, 240
+        radius = 8
+        pygame.draw.circle(self.surface, colour, edible.position.as_tuple(), radius)

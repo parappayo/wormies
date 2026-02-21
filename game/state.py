@@ -1,9 +1,13 @@
+import random
+
+from .edible import *
 from .point import *
 
 
 class GameState:
     def __init__(self):
         self.worms = []
+        self.edibles = []
         self.player_move_x = 0
         self.player_move_y = 0
 
@@ -22,3 +26,10 @@ class GameState:
         player_velocity = Point(self.player_move_x, self.player_move_y)
         if player_velocity.magnitude_squared() > 0.2: # dead zone
             player.move_vec = player_velocity
+
+    def spawn_edibles(self, count):
+        margin = 80
+        for i in range(count):
+            x = random.randint(margin, self.screen_size[0] - margin)
+            y = random.randint(margin, self.screen_size[1] - margin)
+            self.edibles.append(Edible(x, y))

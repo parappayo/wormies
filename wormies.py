@@ -10,6 +10,7 @@ if __name__ == '__main__':
     for i in range(10):
         worm.grow()
     game.worms.append(worm)
+    game.spawn_edibles(100)
 
     pygame.init()
     screen = pygame.display.set_mode(game.screen_size)
