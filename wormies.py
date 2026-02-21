@@ -7,7 +7,11 @@ from gui import *
 if __name__ == '__main__':
     game = GameState()
     worm = Worm(400, 300, 5)
-    game.worms.append(worm)
+    game.spawn_player(400, 300, 5)
+    game.spawn_bot(200, 200, 3)
+    game.spawn_bot(200, 600, 3)
+    game.spawn_bot(600, 200, 3)
+    game.spawn_bot(600, 600, 3)
     game.spawn_edibles(100)
 
     pygame.init()

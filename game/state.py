@@ -1,11 +1,16 @@
 import random
 
+from .bot import *
 from .edible import *
+from .player import *
 from .point import *
+from .worm import *
 
 
 class GameState:
     def __init__(self):
+        self.players = []
+        self.bots = []
         self.worms = []
         self.edibles = []
         self.player_move_x = 0
@@ -19,13 +24,26 @@ class GameState:
         if len(self.worms) < 1:
             return
 
+        for bot in self.bots:
+            bot.update(self, ticks)
+
         for worm in self.worms:
             worm.update(self, ticks)
 
-        player = self.worms[0]
+        # joystick handling
         player_velocity = Point(self.player_move_x, self.player_move_y)
         if player_velocity.magnitude_squared() > 0.2: # dead zone
-            player.move_vec = player_velocity
+            self.players[0].worm.move_vec = player_velocity
+
+    def spawn_player(self, x, y, length):
+        worm = Worm(x, y, length)
+        self.players.append(Player(worm))
+        self.worms.append(worm)
+
+    def spawn_bot(self, x, y, length):
+        worm = Worm(x, y, length)
+        self.bots.append(Bot(worm))
+        self.worms.append(worm)
 
     def spawn_edibles(self, count):
         margin = 80
