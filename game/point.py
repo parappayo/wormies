@@ -49,3 +49,7 @@ class Point:
 
     def as_tuple(self):
         return (self.x, self.y)
+
+    def collides(self, other, radius):
+        diff = self - other
+        return diff.magnitude_squared() <= radius * radius

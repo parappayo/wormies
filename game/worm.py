@@ -2,19 +2,37 @@ from .point import Point
 
 
 class Worm:
-    def __init__(self, x, y):
+    def __init__(self, x, y, length):
         self.points = [Point(x, y)]
         self.move_vec = Point(1, 0)
         self.move_speed = 20 # pixels per frame at 60 fps
         self.spacing = 15
         self.ticks_per_move = 20
         self.ticks_since_last_move = 0
+        self.consumed_edibles = 0
+        self.edibles_to_grow = 10
+        self.starting_length = length
 
-    def update(self, ticks):
+        for i in range(length):
+            self.grow()
+
+    def update(self, game, ticks):
         self.ticks_since_last_move += ticks
         if self.ticks_since_last_move >= self.ticks_per_move:
             self.ticks_since_last_move = self.ticks_since_last_move % self.ticks_per_move
             self.move(ticks)
+
+        edibles_to_despawn = []
+        for edible in game.edibles:
+            if self.head().collides(edible.position, game.point_radius):
+                edibles_to_despawn.append(edible)                
+                self.consumed_edibles += 1
+        game.despawn_edibles(edibles_to_despawn)
+        if self.consumed_edibles // self.edibles_to_grow > len(self.points) - self.starting_length:
+            self.grow()
+
+    def head(self):
+        return self.points[0]
 
     def grow(self):
         self.points.append(self.points[-1])

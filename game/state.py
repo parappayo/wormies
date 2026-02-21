@@ -20,7 +20,7 @@ class GameState:
             return
 
         for worm in self.worms:
-            worm.update(ticks)
+            worm.update(self, ticks)
 
         player = self.worms[0]
         player_velocity = Point(self.player_move_x, self.player_move_y)
@@ -33,3 +33,6 @@ class GameState:
             x = random.randint(margin, self.screen_size[0] - margin)
             y = random.randint(margin, self.screen_size[1] - margin)
             self.edibles.append(Edible(x, y))
+
+    def despawn_edibles(self, edibles_to_despawn):
+        self.edibles = [x for x in self.edibles if x not in edibles_to_despawn]

@@ -6,9 +6,7 @@ from gui import *
 
 if __name__ == '__main__':
     game = GameState()
-    worm = Worm(400, 300)
-    for i in range(10):
-        worm.grow()
+    worm = Worm(400, 300, 5)
     game.worms.append(worm)
     game.spawn_edibles(100)
 
